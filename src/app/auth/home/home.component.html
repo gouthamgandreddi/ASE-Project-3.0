@@ -1,0 +1,101 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<div class="container-fluid">
+  <div class="col-12">
+    <ngb-carousel *ngIf="images" class="ngb-gb">
+      <ng-template ngbSlide>
+        <img [src]="images[0]" alt="Random first slide">
+        <div class="carousel-caption">
+          <h3>First Category</h3>
+          <p>Data Science models</p>
+        </div>
+      </ng-template>
+      <ng-template ngbSlide>
+        <img [src]="images[1]" alt="Random second slide">
+        <div class="carousel-caption">
+          <h3>Second Category</h3>
+          <p>image retrival models</p>
+        </div>
+      </ng-template>
+      <ng-template ngbSlide>
+        <img [src]="images[2]" alt="Random third slide">
+        <div class="carousel-caption">
+          <h3>Third Category</h3>
+          <p>Deep learning</p>
+        </div>
+      </ng-template>
+    </ngb-carousel>
+  </div>
+</div>
+<!-- Benefits
+    ================================================== -->
+<section class="service-sec" id="benefits">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="heading">
+          <h2>
+            <small> Welcome to Modelhub !</small>
+          </h2>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-6 text-sm-center service-block"><i class="fa fa-plus" aria-hidden="true"></i>
+            <h3>SCIENTIFICALLY TESTED</h3>
+            <p>All models are accompanied by peer-reviewed studies published in scientific journals..</p>
+          </div>
+          <div class="col-md-6 text-sm-center service-block"><i class="fa fa-leaf" aria-hidden="true"></i>
+            <h3>DATA AGNOSTIC</h3>
+            <p>Find models for various types of data from 2D and 3D images to audio and video.</p>
+          </div>
+          <div class="col-md-6 text-sm-center service-block"><i class="fa fa-leaf" aria-hidden="true"></i>
+            <h3>TOOL AGNOSTIC</h3>
+            <p>Interchangeable models with pre-/post-processing pipelines and sample data.</p>
+          </div>
+          <div class="col-md-6 text-sm-center service-block"><i class="fa fa-bell" aria-hidden="true"></i>
+            <h3>OPEN-SOURCE</h3>
+            <p>Download fully-documented containers for transfer learning and benchmarking.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4" style="font-size: 3rem"> Few of our Features </div>
+    </div>
+    <!-- /.row -->
+  </div>
+</section>
+
+<!-- About
+    ================================================== -->
+<section class="about-sec parallax-section" id="about">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <h2>
+          <small>Who We Are</small>
+          About<br>
+          Our Blog
+        </h2>
+      </div>
+      <div class="col-md-8">
+        <p>As mentioned above, ‘online host, visualization and deployment’ gives the user a platform where user can upload or
+          download the models or pretty much anything. User can view any model as a separate module and can comment and
+          rate the model. </p>
+        <p>We are following the MEAN stack approach using Angular as front-end application framework, to create the views
+          for user interaction, Node js and Express to handle the business logic and establish the connectivity to database,
+          for user validations and retrieving the details regarding the models. The Discussion form for each issue is going
+          to have a thread of comments and other features which are planning to be implemented.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="action-sec">
+  <div class="container">
+    <div class="action-box text-center"><h2>Model kb </h2></div>
+  </div>
+</section>
+
+

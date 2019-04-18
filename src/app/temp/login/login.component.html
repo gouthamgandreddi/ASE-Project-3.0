@@ -1,0 +1,24 @@
+<mat-card>
+  <form [formGroup]="form" (submit)="onLogin()">
+    <mat-form-field>
+      <input matInput
+             type="text"
+             name="uname"
+             formControlName="uname"
+             placeholder="enter username"
+             floating>
+      <mat-error *ngIf="form.get('uname').invalid">'uname is required' </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="password"
+             name="password"
+             formControlName="password"
+             placeholder="password here"
+             floating>
+      <mat-error *ngIf="form.get('password').invalid">'password is required'</mat-error>
+    </mat-form-field>
+    <hr>
+    <button mat-raised-button color="accent" type="submit">Save</button>
+
+  </form>
+</mat-card>

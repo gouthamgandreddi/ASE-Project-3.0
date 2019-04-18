@@ -1,0 +1,27 @@
+<div>
+  <br>
+  {{title}}
+  <br>
+</div>
+
+
+<mat-tab-group animationDuratiosn="1000ms">
+    <mat-tab label="Accuracy">
+        <h1>Accuracy chart</h1>
+        <canvas baseChart
+                width="150" height="100"
+                [data]="accuracyValueData" [labels]="model_iteration"  [options]="lineChartOptions" [chartType]="lineChartType" >
+        </canvas>
+    </mat-tab>
+    <mat-tab label="Loss">
+        <h1>Loss value chart</h1>
+        <canvas baseChart
+                width="150" height="100"
+                [data]="lossValueData"  [labels]="model_iteration"  [options]="lineChartOptions" [chartType]="lineChartType" >
+        </canvas>
+    </mat-tab>
+    <mat-tab label="Iretations">
+        <h1>Iterations results</h1>
+
+    </mat-tab>
+</mat-tab-group>

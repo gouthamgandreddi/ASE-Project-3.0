@@ -1,0 +1,14 @@
+<!--<div [formGroup]="form">-->
+  <!--employer data <hr>-->
+  <!--<p formControlName="userdata" ></p>-->
+  <!--<button (click)="getData()"></button>-->
+<!--</div>-->
+
+
+<div>
+  employer data <hr>
+  <p *ngFor="let user of userdata">{{user}}</p>
+  <hr>
+  <button mat-raised-button color="accent" (click)="getData()">user info</button>
+</div>
+
