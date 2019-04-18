@@ -14,7 +14,7 @@ import {
   MatInputModule,
   MatToolbarModule,
   MatProgressSpinnerModule,
-  MatPaginatorModule,
+  MatPaginatorModule, MatIconModule,
 } from '@angular/material';
 import {MatTabsModule} from '@angular/material/tabs';
 import { HeaderComponent } from './header/header.component';
@@ -30,6 +30,7 @@ import {AuthInterceptor} from "./auth/auth-interceptor";
 import { RepoComponent } from './auth/repo/repo.component';
 import {ChartsModule} from "ng2-charts";
 import { UserprofileComponent } from './userprofile/userprofile.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { UserprofileComponent } from './userprofile/userprofile.component';
     SignupComponent,
     RepoComponent,
     UserprofileComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,6 +65,7 @@ import { UserprofileComponent } from './userprofile/userprofile.component';
     MatPaginatorModule,
     ChartsModule,
     MatTabsModule,
+    MatIconModule,
 
   ],
   providers: [

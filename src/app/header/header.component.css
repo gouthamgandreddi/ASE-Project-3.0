@@ -13,3 +13,7 @@ ul{
 .space{
   flex: 1 1 auto;
 }
+
+.home{
+  margin-right: 1rem;
+}
