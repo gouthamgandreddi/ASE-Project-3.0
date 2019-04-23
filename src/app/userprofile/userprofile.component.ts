@@ -13,5 +13,5 @@ export class UserprofileComponent implements OnInit {
   ngOnInit() {
   }
 
-   message ='user'
+   message ='user';
 }

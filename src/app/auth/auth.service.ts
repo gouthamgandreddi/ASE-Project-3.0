@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {AuthDataModel} from "./auth-data-model";
 import {map} from "rxjs/operators";
 import {HttpClient} from "@angular/common/http";
-import {Subject} from "rxjs";
+import {BehaviorSubject, Subject} from "rxjs";
 import {Router} from "@angular/router";
 import {log} from "util";
 
@@ -10,11 +10,17 @@ import {log} from "util";
   providedIn: 'root'
 })
 export class AuthService {
+
   private token: any;
+  private modelDataListner = new Subject<any>();
   private userIsAuthenticted =false;
   private authStatusListner = new Subject<boolean>();
   private tokenTimer:any;
-  constructor(private http:HttpClient,private router:Router) { }
+  private messageSource = new BehaviorSubject([]);
+  currentMessage = this.messageSource.asObservable();
+
+
+    constructor(private http:HttpClient,private router:Router) { }
 
   getToken(){
     return this.token;
@@ -25,6 +31,9 @@ export class AuthService {
   }
   getAuthStatusListner(){
       return this.authStatusListner.asObservable();
+  }
+  getModelDataListner(){
+      return this.modelDataListner.asObservable();
   }
   createUser(email:string,password:string){
     const authData: AuthDataModel = {
@@ -102,4 +111,35 @@ export class AuthService {
                 return result;
             }));
     }
+    getSearchResult(title : string) {
+        console.log('Searching Models - service');
+
+        const model = {
+            title:title
+        };
+        return this.http.post('http://localhost:3000/api/expr/searchingModels',model)
+            .pipe(map(result=>{
+                console.log('in auth service searching Models - ' ,result);
+                return result;
+            }));
+    }
+
+    changeMessage(message: any) {
+        this.messageSource.next(message);
+    }
+    // search v1 just for sample search model - alternate for prem
+    // model(title:string){
+    //     console.log('to experiments from auth service ');
+    //     // const param = `?model_name=`+title;
+    //     const model = {
+    //         title:title
+    //     };
+    //     return this.http.post('http://localhost:3000/api/expr/searchModel',model)
+    //         .subscribe(result=>{
+    //             console.log('in auth service from db - ' ,result);
+    //             this.modelDataListner.next(result);
+    //             this.router.navigate(['/search']);
+    //             return result;
+    //         });
+    // }
 }
