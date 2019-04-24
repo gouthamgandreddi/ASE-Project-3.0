@@ -30,6 +30,16 @@ export class HeaderComponent implements OnInit,OnDestroy {
     this.authService.logout();
     this.userName='UserProfile';
   }
+  searchModel(searchValue: HTMLInputElement) {
+    console.log(searchValue.value);
+    this.authService.getSearchResult(searchValue.value).subscribe( res =>
+        {
+          this.authService.changeMessage(res);
+          console.log('Searching for Models' + res);
+        }
+    )
+  }
+
   ngOnDestroy(){
     this.authListnerSubs.unsubscribe();
   }
