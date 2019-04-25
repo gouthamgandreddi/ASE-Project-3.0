@@ -31,6 +31,36 @@ import { RepoComponent } from './auth/repo/repo.component';
 import {ChartsModule} from "ng2-charts";
 import { UserprofileComponent } from './userprofile/userprofile.component';
 import { SearchComponent } from './search/search.component';
+import { LikeComponent } from './like/like.component';
+import { SocialLoginComponent } from './social-login/social-login.component';
+
+import {
+  SocialLoginModule,
+  AuthServiceConfig,
+  GoogleLoginProvider,
+  FacebookLoginProvider, LinkedinLoginProvider,
+} from 'angular-6-social-login';
+
+// Configs
+export function getAuthServiceConfigs() {
+  const config = new AuthServiceConfig(
+      [
+        {
+          id: FacebookLoginProvider.PROVIDER_ID,
+          provider: new FacebookLoginProvider('Your-Facebook-app-id')
+        },
+        {
+          id: GoogleLoginProvider.PROVIDER_ID,
+          provider: new GoogleLoginProvider('982804554937-m0r0rl6rc917kksariha2prkl3lhh2d8.apps.googleusercontent.com')
+        },
+        {
+          id: LinkedinLoginProvider.PROVIDER_ID,
+          provider: new LinkedinLoginProvider('1098828800522-m2ig6bieilc3tpqvmlcpdvrpvn86q4ks.apps.googleusercontent.com')
+        },
+      ]
+  );
+  return config;
+}
 
 @NgModule({
   declarations: [
@@ -46,6 +76,8 @@ import { SearchComponent } from './search/search.component';
     RepoComponent,
     UserprofileComponent,
     SearchComponent,
+    LikeComponent,
+    SocialLoginComponent
   ],
   imports: [
     BrowserModule,
@@ -66,10 +98,12 @@ import { SearchComponent } from './search/search.component';
     ChartsModule,
     MatTabsModule,
     MatIconModule,
+    SocialLoginModule
 
   ],
   providers: [
-      {provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true}
+      {provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true},
+    { provide : AuthServiceConfig, useFactory: getAuthServiceConfigs }
       ],
   bootstrap: [AppComponent]
 })

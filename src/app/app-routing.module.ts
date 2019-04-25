@@ -19,6 +19,7 @@ const routes: Routes = [
   {path:'login',component:LoginComponent},
   {path:'signup',component:SignupComponent},
   {path:'repo/:title',component:RepoComponent},
+  {path:'search/repo/:title',component:RepoComponent},
   {path:'home',component:HomeComponent},
   {path:'user',component:UserprofileComponent,canActivate:[AuthGuard]},//inject  in component 'private authService:AuthService'
   {path:'*',component:HomeComponent},

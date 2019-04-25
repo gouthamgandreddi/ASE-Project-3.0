@@ -11,7 +11,7 @@ import {invalid} from "@angular/compiler/src/render3/view/util";
 })
 export class SignupComponent implements OnInit {
 
-  email ;
+  email ; 
   password ;
   error = 'Error, expected `email` to be unique.';
   emailTakenErr:boolean;

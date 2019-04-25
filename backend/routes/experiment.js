@@ -18,6 +18,24 @@ router.get('/exi',(req,res,next)=>{
         })
 });
 
+router.post('/searchingModels',(req,res,next)=>{
+
+    console.log('req body  - ',req.body);
+    console.log('req title  - ',req.body.title);
+
+    Exp.find({model_name:req.body.title})
+        .then(result =>{
+            console.log(result,' - result');
+            const ex = result;
+            console.log('ex - ', ex);
+            res.json(ex);
+        })
+        .catch(err =>{
+            console.log(err, ' - error in expt');
+        })
+});
+
+
 router.post('/exi',(req,res,next)=>{
 
     console.log('req body  - ',req.body);

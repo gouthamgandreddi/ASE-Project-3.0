@@ -9,8 +9,8 @@
       <a mat-button routerLink="/create" routerLinkActive="mat-accent">New Repository</a>
     </li>
     <li *ngIf="userIsAuthenticated">
-      <input type="search">
-      <button mat-button  routerLink="/search" routerLinkActive="mat-accent"><mat-icon>search</mat-icon></button>
+      <input type="search" #searchValue>
+      <button mat-button routerLinkActive="mat-accent" (click)="searchModel(searchValue)" routerLink="/search"><mat-icon>search</mat-icon></button>
     </li>
     <li *ngIf="!userIsAuthenticated">
       <a mat-button routerLink="/login" routerLinkActive="mat-accent">Login</a>

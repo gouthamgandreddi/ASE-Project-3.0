@@ -19,6 +19,6 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.authService.login(form.value.email,form.value.password);
-    this.authService.getExperiments();
+    // this.authService.getExperiments();
   }
 }

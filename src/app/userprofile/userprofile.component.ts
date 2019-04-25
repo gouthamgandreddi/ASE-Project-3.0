@@ -8,10 +8,12 @@ import {AuthService} from "../auth/auth.service";
 })
 export class UserprofileComponent implements OnInit {
 
+  public userName : string;
   constructor(private authService:AuthService) { }
 
   ngOnInit() {
+    this.userName = localStorage.getItem('username');
   }
 
-   message ='user'
+   // message ='user'
 }
