@@ -1,6 +1,6 @@
-html *{
-    -webkit-font-smoothing: antialiased;
-}
+/*html *{*/
+    /*-webkit-font-smoothing: antialiased;*/
+/*}*/
 
 .h6, h6 {
     font-size: .75rem !important;
