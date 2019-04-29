@@ -16,17 +16,12 @@ export class AuthService {
   private userIsAuthenticted =false;
   private authStatusListner = new Subject<boolean>();
   private tokenTimer:any;
-<<<<<<< HEAD
-    private messageSource = new BehaviorSubject(null);
-    currentMessage = this.messageSource.asObservable();
-  constructor(private http:HttpClient,private router:Router) { }
-=======
+
   private messageSource = new BehaviorSubject([]);
   currentMessage = this.messageSource.asObservable();
 
 
     constructor(private http:HttpClient,private router:Router) { }
->>>>>>> b333ed7f5cc3016a71d43803b46774706f7b2d5c
 
   getToken(){
     return this.token;
@@ -117,10 +112,7 @@ export class AuthService {
                 return result;
             }));
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> b333ed7f5cc3016a71d43803b46774706f7b2d5c
     getSearchResult(title : string) {
         console.log('Searching Models - service');
 
@@ -137,23 +129,5 @@ export class AuthService {
     changeMessage(message: any) {
         this.messageSource.next(message);
     }
-<<<<<<< HEAD
 
-=======
-    // search v1 just for sample search model - alternate for prem
-    // model(title:string){
-    //     console.log('to experiments from auth service ');
-    //     // const param = `?model_name=`+title;
-    //     const model = {
-    //         title:title
-    //     };
-    //     return this.http.post('http://localhost:3000/api/expr/searchModel',model)
-    //         .subscribe(result=>{
-    //             console.log('in auth service from db - ' ,result);
-    //             this.modelDataListner.next(result);
-    //             this.router.navigate(['/search']);
-    //             return result;
-    //         });
-    // }
->>>>>>> b333ed7f5cc3016a71d43803b46774706f7b2d5c
 }
