@@ -52,8 +52,8 @@ export class RepoComponent implements OnInit,OnDestroy {
       this.title = params['title'];
       this.authService.getRepo(this.title).subscribe(res =>{
         console.log('response in repo',res);
-        console.log('response in repo',res.ex);
-        let data = res.ex;
+        console.log('response in repo',res['ex']);
+        let data = res['ex'];
         for(let i=0;i<data.length;i++){
           console.log(data[i].model_name,data[i].accuracyValue,data[i].lossValue);
           this.accuracyValueData.push(data[i].accuracyValue);
