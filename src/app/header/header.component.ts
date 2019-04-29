@@ -31,6 +31,7 @@ export class HeaderComponent implements OnInit,OnDestroy {
     this.authService.logout();
     this.userName='UserProfile';
   }
+<<<<<<< HEAD
 
   searchModel(searchValue: HTMLInputElement) {
      console.log(searchValue.value);
@@ -40,6 +41,16 @@ export class HeaderComponent implements OnInit,OnDestroy {
        console.log('Searching for Models' + res);
      }
    )
+=======
+  searchModel(searchValue: HTMLInputElement) {
+    console.log(searchValue.value);
+    this.authService.getSearchResult(searchValue.value).subscribe( res =>
+        {
+          this.authService.changeMessage(res);
+          console.log('Searching for Models' + res);
+        }
+    )
+>>>>>>> b333ed7f5cc3016a71d43803b46774706f7b2d5c
   }
 
   ngOnDestroy(){

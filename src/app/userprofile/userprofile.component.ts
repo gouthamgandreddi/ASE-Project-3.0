@@ -15,5 +15,9 @@ export class UserprofileComponent implements OnInit {
     this.userName = localStorage.getItem('username');
   }
 
+<<<<<<< HEAD
    // message ='user'
+=======
+   message ='user';
+>>>>>>> b333ed7f5cc3016a71d43803b46774706f7b2d5c
 }

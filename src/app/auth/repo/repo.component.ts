@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {AuthService} from "../auth.service";
 import {type} from "os";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-repo',
@@ -14,6 +15,8 @@ export class RepoComponent implements OnInit,OnDestroy {
   sub:any;
   public lineChartType = 'line';
   public SystemName;
+  form: FormGroup;
+
 
   public labelMFL: Array<any> ;
   public lineChartOptions: any = { 
@@ -38,6 +41,12 @@ export class RepoComponent implements OnInit,OnDestroy {
   constructor(private route:ActivatedRoute,private authService:AuthService) { }
 
   ngOnInit() {
+
+    this.form = new FormGroup({
+      'file':new FormControl(null,{
+        validators:[Validators.required]
+      })
+    });
     this.sub = this.route.params.subscribe(params =>{
       console.log('params in repo - ', params);
       this.title = params['title'];
