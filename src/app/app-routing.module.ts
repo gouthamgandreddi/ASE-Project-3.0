@@ -10,6 +10,7 @@ import {HomeComponent} from "./auth/home/home.component";
 import {UserprofileComponent} from "./userprofile/userprofile.component";
 import {AuthService} from "./auth/auth.service";
 import {SearchComponent} from "./search/search.component";
+import {FilterComponent} from "./filter/filter.component";
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
@@ -23,7 +24,8 @@ const routes: Routes = [
   {path:'home',component:HomeComponent},
   {path:'user',component:UserprofileComponent,canActivate:[AuthGuard]},//inject  in component 'private authService:AuthService'
   {path:'*',component:HomeComponent},
-  {path:'search',component:SearchComponent}
+  {path:'search',component:SearchComponent},
+  { path:'filter', component: FilterComponent}
 
 ];
 @NgModule({
