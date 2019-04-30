@@ -39,13 +39,16 @@ const storage = multer.diskStorage({
 router.post("",checkAuth,multer({storage:storage}).single("image"),(req,res,next)=>{
   const url = req.protocol+'://'+req.get('host');
   console.log(req,'-image path');
+  console.log('user name from frontend'+ req.body.username);
 
   const post = new Post({
     _id:req.id,
     title:req.body.title,
     content:req.body.content,
-    imagePath:url+"/images/"+ req.file.filename
+    imagePath:url+"/images/"+ req.file.filename,
+    username: req.body.username
   });
+
   post.save().then(createdPost =>{
     console.log('add posts result',createdPost);
     console.log(post);
@@ -62,7 +65,9 @@ router.post("",checkAuth,multer({storage:storage}).single("image"),(req,res,next
 router.get("",(req,res,next)=>{
   const pageSize = +req.query.pagesize;
   const CurrentPage = +req.query.page;
-  const postQuery = Post.find();
+  const username = +req.query.username;
+  console.log('user name at backend'+ req.query.username);
+  const postQuery = Post.find({username: username});
   let fetchedPosts;
   if(pageSize && CurrentPage){
     postQuery
@@ -83,13 +88,29 @@ router.get("",(req,res,next)=>{
       })
 });
 
+
+// router.get("/temp",(req,res,next)=>{
+//   const pageSize = +req.query.pagesize;
+//   const CurrentPage = +req.query.page;
+//   const username = +req.query.username;
+//   console.log('user name at backend'+ req.query.username);
+//    Post.find({'username': username})
+//        .then(result =>{
+//          console.log('in temp with username - ',result)
+//        });
+//
+//
+// });
+
+
 router.put("/:id" ,multer({storage:storage}).single("image"),(req,res,next)=>{
   const url = req.protocol+'://'+req.get('host');
   console.log(req,' -file req');
   const post = new Post({
     title:req.body.title,
     content:req.body.content,
-    imagePath: url + "/images/"+req.file.filename
+    imagePath: url + "/images/"+req.file.filename,
+    username: req.body.username
   });
   console.log('inside put');
   Post.updateOne({_id:req.params.id},{

@@ -12,6 +12,9 @@ const postSchema = mongoose.Schema({
   imagePath:{
     type:String,
     required: true
+  },
+  username: {
+    type: String
   }
 });
 
