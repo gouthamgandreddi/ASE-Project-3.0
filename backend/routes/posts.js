@@ -67,7 +67,8 @@ router.get("",(req,res,next)=>{
   const CurrentPage = +req.query.page;
   const username = +req.query.username;
   console.log('user name at backend'+ req.query.username);
-  const postQuery = Post.find({username: username});
+  const postQuery = Post.find({'username': req.query.username});
+  console.log('post query at backend '+postQuery);
   let fetchedPosts;
   if(pageSize && CurrentPage){
     postQuery
@@ -89,18 +90,6 @@ router.get("",(req,res,next)=>{
 });
 
 
-// router.get("/temp",(req,res,next)=>{
-//   const pageSize = +req.query.pagesize;
-//   const CurrentPage = +req.query.page;
-//   const username = +req.query.username;
-//   console.log('user name at backend'+ req.query.username);
-//    Post.find({'username': username})
-//        .then(result =>{
-//          console.log('in temp with username - ',result)
-//        });
-//
-//
-// });
 
 
 router.put("/:id" ,multer({storage:storage}).single("image"),(req,res,next)=>{
