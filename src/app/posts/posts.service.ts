@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Post} from './post.model';
 import {Subject} from 'rxjs';
-import {HttpClient,HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {parseHttpResponse, post} from 'selenium-webdriver/http';
 import {Router} from "@angular/router";
@@ -75,7 +75,7 @@ export class PostsService {
     updateData.append('title',title);
       updateData.append('content',content);
       updateData.append('image',image,title);
-      console.log(updateData,' -updated data')
+      console.log(updateData,' -updated data');
     this.http.put('http://localhost:3000/api/posts/'+id,updateData)
       .subscribe(response => {
         // this.getPosts();
@@ -107,7 +107,79 @@ export class PostsService {
       })
   }
 
-  login(uname:string,password:string){
+
+
+
+  //fileupload
+    uploadfile(image:string,modelName:string){
+        const postData = new FormData();
+        postData.append('image',image);
+        const queryParams = `?modelName=${modelName}`;
+        console.log('upload service   - ',postData );
+        return this.http.post<{message:string,file:any}>('http://localhost:3000/api/posts/uploader'+queryParams, postData)
+            .pipe(map((responseData) =>{
+                console.log(responseData.file,' -  filename');
+                return responseData;
+            },error =>{
+                console.log(error);
+            }))
+    }
+
+    //file listing
+    getFilesList(modelName:string){
+        console.log('list files  service',modelName );
+        const queryParams = `?modelName=${modelName}`;
+        console.log('query params - ', queryParams);
+        return this.http.get('http://localhost:3000/api/posts/files'+queryParams)
+            .pipe(map(res => {
+                    console.log(res, ' -  filename');
+                    return res;
+                })
+            )
+    }
+
+    // get single file
+    getFileService(fileFname:string){
+        const queryParams = `?filename=${fileFname}`;
+        console.log('upload service   - ',fileFname );
+        this.http.get<{message:string,file:any}>('http://localhost:3000/api/posts/files/'+queryParams)
+            .subscribe((responseData) =>{
+                console.log(responseData.file,' -  filename');
+                this.router.navigate(['/repo/LST']); // make change
+            },error =>{
+                console.log(error);
+            })
+    }
+
+    deleteFileService(filename:string){
+        const queryParams = `?filename=${filename}`;
+        console.log('before sending - delete service  file name  - ',filename );
+        return this.http.delete('http://localhost:3000/api/posts/files/'+queryParams)
+            .pipe(map((responseData) =>{
+                console.log(responseData,' -  response after delete - service filename');
+                this.router.navigate(['/repo/LST']); // make change
+            },error =>{
+                console.log(error);
+            })
+            )
+    }
+
+    downloadFileService(filename:string,filetype:string){
+      console.log('filename in server for download - ', filename);
+        const queryParams = `?filename=${filename}`;
+        console.log('query params before sending -  ',queryParams)
+        return this.http.get('http://localhost:3000/api/posts/files/download'+queryParams,
+            {responseType:'blob'});
+            // .pipe(map((responseData) =>{
+            //     console.log(responseData,' -  response after download - service filename');
+            //     this.router.navigate(['/repo/LST']); // make change
+            //     return responseData;
+            // },error =>{
+            //     console.log(error);
+            // }))
+    }
+
+    login(uname:string,password:string){
       console.log(uname,password,'- at service');
       const logindata = new FormData();
       logindata.append('uname',uname);
