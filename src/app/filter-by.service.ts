@@ -17,6 +17,10 @@ export class FilterByService {
   private posts: Post [] = [];
   private postsUpdated = new Subject<{ posts: Post[], postCount: number }>();
 
+  // getclassifications() {
+  //   return this.http.get('http://localhost:3000/api/posts/getClassifications');
+  // }
+
   getInfoByCategory(category) {
     const queryParams = `?category=${category}`;
     console.log(category);

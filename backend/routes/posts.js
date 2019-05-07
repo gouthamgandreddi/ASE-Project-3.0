@@ -121,7 +121,25 @@ router.get("/byCategory",(req,res,next)=>{
       })
 });
 
-
+// router.get("/getClassifications", (req, res, next) => {
+//     console.log('category at backend'+ req.query.category);
+//     const postQuery = Post.find({});
+//     console.log('post query at backend '+postQuery.classification);
+//     let fetchedPosts;
+//
+//     postQuery
+//         .then(documents =>{
+//             fetchedPosts = documents;
+//             return Post.countDocuments();
+//         })
+//         .then(count => {
+//             res.status(200).json({
+//                 message:'response from server',
+//                 posts:fetchedPosts,
+//                 maxPosts: count
+//             });
+//         })
+// });
 
 
 router.put("/:id" ,multer({storage:storage}).single("image"),(req,res,next)=>{

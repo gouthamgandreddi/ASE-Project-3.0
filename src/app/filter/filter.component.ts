@@ -18,20 +18,29 @@ export class FilterComponent implements OnInit {
   constructor(private filter: FilterByService, public auth: AuthService) { }
   message:Array<string> =[];
   // message: any;
+  class:Array<string> =[];
 
   foods: Food[] = [
     {value: 'steak-0', viewValue: 'Deep learning'},
     {value: 'pizza-1', viewValue: 'CNN'},
     {value: 'tacos-2', viewValue: 'Model KB'}
   ];
+
   ngOnInit() {
+
+    console.log('In Filter component');
     this.auth.currentMessage.subscribe(message => {
 
       console.log('Search Component ',message);
       this.message = message;
       // console.log('res' + this.message);
     });
+
+    // this.filter.getclassifications().subscribe(result =>
+    // // console.log('classifications', result);
+    // console.log('classifications', result.posts[0].title));
   }
+
 
   onsubmit(d){
     // console.log(d);
