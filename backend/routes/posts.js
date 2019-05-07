@@ -8,7 +8,15 @@ const like = require("../models/like");
 const comment = require("../models/comment");
 const checkAuth = require('../middleware/check-auth');
 var jwt = require('jsonwebtoken');
+//file upload
+const crypto = require('crypto');
+const GridFsStorage = require('multer-gridfs-storage');
+const Grid = require('gridfs-stream');
+const mongoose = require('mongoose')
 
+const mongoURI = 'mongodb+srv://gouthamase:gouthamase@cluster0-5zsye.mongodb.net/model?retryWrites=true';
+
+const conn = mongoose.createConnection(mongoURI);
 
 const MIME_TYPE_MAP ={
   'image/png':'png',
@@ -40,6 +48,120 @@ const storage = multer.diskStorage({
     cb(null,name+'-'+Date.now()+'.'+ext);
   }
 });
+
+///
+
+
+let gfs;
+
+conn.once('open',  () => {
+  gfs = Grid(conn.db, mongoose.mongo);
+  gfs.collection('book')
+});
+
+// building storage engine for  POST /uploadFile
+//create storage engine
+const  store = new GridFsStorage({
+    url: mongoURI,
+  file: (req, file) => {
+    return new Promise((resolve, reject) => {
+        const filename = file.originalname;
+        const metadata = req.query.modelName;
+        console.log(' 8888888888- filename - ',filename,' - filename');
+        console.log('model name query params - ',req.query.modelName);
+        const fileInfo = {
+          filename: filename,
+          metadata: metadata,
+          bucketName: 'book'
+        };
+        console.log(' 8888888888- filename - ',fileInfo,' - filename');
+        resolve(fileInfo);
+    });
+  }
+});
+const upload = multer({ storage:store });
+
+// @route POST /uploadFile (image/filename,title of model)
+// this is the route for upload
+
+router.post('/uploader',upload.single('image'),(req,res)=>{
+  console.log('File uploader ascsawdfs  - ' ,res);
+  res.json({
+    message:'succesfully uploaded',
+    file:req.file
+  })
+});
+
+// @route GET  /files loads initially on ngOnInit
+// this is the route for listing the files
+
+router.get('/files',(req,res)=>{
+  console.log('files',req.query);
+  const metadata = req.query.modelName;
+  console.log('metadata',metadata);
+  gfs.files.find({metadata:metadata}).toArray((err,files)=>{
+    console.log('files after metadata - ',files);
+    if(!files || files.length === 0){
+        return res.status(200).json({message:'no data'})
+    }
+    return res.json(files);
+  });
+});
+
+// @route DELETE  /files
+// this is the route for deleting the files
+
+router.delete('/files',(req,res)=>{
+  console.log('files - query params - ',req.query.filename);
+  gfs.remove({filename:req.query.filename,root:'book'},  (err, GridFSBucket) => {
+    if (err){
+      return res.status(404).json({err:err});
+    }else{
+      console.log('success');
+      return res.status(200).json({message:'success'})
+    }
+  });
+});
+
+
+//download
+router.get('/files/download',(req,res)=>{
+  console.log('req.params.filename = ',req.query.filename);
+  console.log('download individual files');
+  gfs.files.findOne({filename:req.query.filename},(err,file) => {
+    if(!file || file.length === 0){
+      return res.status(404).json({
+        err:'No such file'
+      });
+    }else{
+      console.log('in creatread stream');
+      const readstream = gfs.createReadStream({
+        filename:file.filename,
+        root: "book"
+      });
+      res.set('Content-Type', file.contentType);
+      return readstream.pipe(res);
+    }
+  });
+});
+
+// ttemp
+router.get('/files/:filename',(req,res)=>{
+  console.log('req.params.filename = ',req.params.filename);
+  console.log('individual files');
+  gfs.files.findOne({filename:req.params.filename},(err,file) => {
+    if(!file || file.length === 0){
+        return res.status(404).json({
+          err:'No such file'
+        });
+    }else{
+      const readstream = gfs.createReadStream(file.filename);
+      readstream.pipe(res);
+    }
+  });
+});
+
+
 
 router.post("",checkAuth,multer({storage:storage}).single("image"),(req,res,next)=>{
   const url = req.protocol+'://'+req.get('host');
@@ -247,5 +369,6 @@ function verifyToken(req,res,next){
     console.log('error on verifyToken')
   }
 }
+
 
 module.exports = router;
