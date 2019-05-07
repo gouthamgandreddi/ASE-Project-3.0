@@ -5,9 +5,12 @@ const mongoose = require('mongoose');
 const postsRoutes = require('../backend/routes/posts');
 const usersRoutes = require('../backend/routes/user');
 const exprRoutes = require('../backend/routes/experiment');
-
+//fileipload using GridFS
+const methodOverride = require('method-override');
 
 const app = express();
+
+// const conn = new mongoose();
 
 mongoose.connect("mongodb+srv://gouthamase:gouthamase@cluster0-5zsye.mongodb.net/model?retryWrites=true",
   { useNewUrlParser: true })
@@ -21,7 +24,7 @@ mongoose.connect("mongodb+srv://gouthamase:gouthamase@cluster0-5zsye.mongodb.net
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use("/images",express.static(path.join("backend/images")));
-
+app.use(methodOverride('_method'))
 app.use((req,res,next) =>{
   res.setHeader('Access-Control-Allow-Origin','*');
   res.setHeader('Access-Control-Allow-Headers','Origin,X-Requested-With,Content-Type,Accept,Authorization');

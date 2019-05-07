@@ -21,8 +21,30 @@
         </canvas>
     </mat-tab>
     <mat-tab label="Iretations">
-        <h1>Iterations results</h1>
-
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 m-auto">
+                    <h1 class="text-center mat-display-5 my-4">Iterations results</h1>
+                    <button mat-stroked-button type="button" (click)="filePicker.click()">Upload File</button>
+                    <h2>Files are </h2>
+                    <input type="file" name="image" #filePicker (change)="onImagePicked($event)">
+                    <table>
+                        <tr>
+                            <th>File Name</th>
+                            <th>Upload Time</th>
+                            <th>Delete</th>
+                            <th>Download</th>
+                        </tr>
+                        <tr *ngFor="let file of files">
+                                <td><a (click)="downloadFile(file.filename,file.contentType)">{{file.filename}}</a></td>
+                                <td>{{file.uploadDate}}</td>
+                                <td><button (click)="deleteFile(file.filename)">Delete</button></td>
+                                <td><button (click)="downloadFile(file.filename,file.contentType)">Download</button></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
     </mat-tab>
     <mat-tab label="Code">
         <div class="container">
