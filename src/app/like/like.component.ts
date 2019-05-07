@@ -20,7 +20,7 @@ export class LikeComponent implements OnInit {
     this.serve.addLikes(this.favour).subscribe(res => {
       console.log(res);
       // this.favour = res;
-      this.like = res.like;
+      this.like = res['like'];
       // console.log(res.like);
       // this.favour.like=res.like;
     });
@@ -47,9 +47,9 @@ export class LikeComponent implements OnInit {
     // debugger
     this.serve.addLikes(this.favour).subscribe(res => {
       console.log(res);
-      console.log(res.like);
-      this.favour.like=res.like;
-      this.like = res.like;
+      console.log(res['like']);
+      this.favour.like=res['like'];
+      this.like = res['like'];
     });
   }
   ondislike() {
