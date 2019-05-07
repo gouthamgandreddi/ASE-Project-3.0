@@ -1,6 +1,6 @@
 <h4>Basic mat-select</h4>
 <mat-form-field>
-  <mat-label>Favorite food</mat-label>
+  <mat-label>Clasification</mat-label>
   <mat-select>
     <mat-option *ngFor="let food of foods" [value]="food.value" (click)="onsubmit(food.viewValue)" routerLink="/filter">
        {{food.viewValue}}
@@ -13,7 +13,7 @@
 <mat-card class="example-card" *ngFor ="let msg of message.posts">
   <mat-card-header>
     <h1>{{msg.classification}}</h1>
-    <div mat-card-avatar class="example-header-image" routerLink="repo/{{msg.classification}}"></div>
+    <div mat-card-avatar class="example-header-image" routerLink="repo/{{msg.title}}"></div>
     <mat-card-title>{{msg.username}}</mat-card-title>
     <mat-card-subtitle>{{msg.classification}}</mat-card-subtitle>
   </mat-card-header>

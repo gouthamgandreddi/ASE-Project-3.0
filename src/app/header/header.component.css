@@ -7,6 +7,10 @@ a{
   text-decoration: none;
 }
 
+mat-toolbar{
+  background-color: black;
+  color:white;
+}
 ul{
   display: flex;
 }
@@ -16,4 +20,13 @@ ul{
 
 .home{
   margin-right: 1rem;
+  color: white;
+}
+
+mat-icon{
+  color: white;
+}
+
+a{
+  color: white;
 }

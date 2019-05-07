@@ -39,12 +39,15 @@ export class CommentComponent implements OnInit {
     console.log(this.commentForm.value);
 
     this.likeserve.addComment(this.commentForm).subscribe(res => {
+
       console.log('response from backend'+ res);
       console.log('response from backend'+ res['username']);
      // this.comment =res.modelname;
       this.comment.push(res['username'], res['comment']);
       console.log('comment value '+ this.comment);
+
     });
+
 
 
 

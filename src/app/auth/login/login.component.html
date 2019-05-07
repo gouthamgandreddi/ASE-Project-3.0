@@ -24,7 +24,7 @@
              placeholder="Password"
              required
              floating>
-      <mat-error *ngIf=" ">'enter valid password'</mat-error>
+      <mat-error *ngIf=" passwordInput.invalid">'enter valid password'</mat-error>
     </mat-form-field>
     <hr>
     <button mat-raised-button color="accent" type="submit">Login</button>
