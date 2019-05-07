@@ -112,7 +112,7 @@ export class AuthService {
                 return result;
             }));
     }
-    
+
 
     getSearchResult(title : string) {
         console.log('Searching Models - service');
