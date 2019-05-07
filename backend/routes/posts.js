@@ -1,6 +1,11 @@
+// import * as like from "mongodb";
+
 const express = require('express');
+const mongoose = require('mongoose');
 const multer = require("multer");  //multer needs configuration
 const Post = require('../models/post');
+const like = require("../models/like");
+const comment = require("../models/comment");
 const checkAuth = require('../middleware/check-auth');
 var jwt = require('jsonwebtoken');
 
@@ -46,7 +51,8 @@ router.post("",checkAuth,multer({storage:storage}).single("image"),(req,res,next
     title:req.body.title,
     content:req.body.content,
     imagePath:url+"/images/"+ req.file.filename,
-    username: req.body.username
+    username: req.body.username,
+    classification:req.body.category
   });
 
   post.save().then(createdPost =>{
@@ -61,6 +67,8 @@ router.post("",checkAuth,multer({storage:storage}).single("image"),(req,res,next
     });
   });
 });
+
+
 
 router.get("",(req,res,next)=>{
   const pageSize = +req.query.pagesize;
@@ -91,32 +99,6 @@ router.get("",(req,res,next)=>{
 
 
 
-// router.get("/byCategory",(req,res,next)=>{
-//   const pageSize = +req.query.pagesize;
-//   const CurrentPage = +req.query.page;
-//   const username = +req.query.username;
-//   console.log('user name at backend'+ req.query.username);
-//   const postQuery = Post.find({'username': req.query.username});
-//   console.log('post query at backend '+postQuery);
-//   let fetchedPosts;
-//   if(pageSize && CurrentPage){
-//     postQuery
-//         .skip(pageSize * (CurrentPage -1))
-//         .limit(pageSize);
-//   }
-//   postQuery
-//       .then(documents =>{
-//         fetchedPosts = documents;
-//         return Post.countDocuments();
-//       })
-//       .then(count => {
-//         res.status(200).json({
-//           message:'response from server',
-//           posts:fetchedPosts,
-//           maxPosts: count
-//         });
-//       })
-// });
 
 router.get("/byCategory",(req,res,next)=>{
 
@@ -216,6 +198,30 @@ router.post("/userinfo",verifyToken,(req,res,next)=>{
   });
 
 });
+
+
+router.post("/favour",(req, res, next) => {
+  console.log(req.body);
+   like.findOneAndUpdate({$and: [ {"modelname": req.body.modelname}, {"username": req.body.username}]},req.body, {upsert: true}).then(result => {
+
+     res.json(result);
+       }
+   );
+});
+
+router.post("/comment", (req, res, next) => {
+  console.log(req.body.modelname);
+  let newComment = new comment(req.body);
+  newComment.save({}, (err, result) => {
+    if(result) {
+      res.send(result);
+    }
+    if(err) {
+      res.send('fail');
+    }
+  })
+});
+
 
 function verifyToken(req,res,next){
   //get auth header value

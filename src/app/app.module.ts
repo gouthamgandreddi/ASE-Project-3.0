@@ -17,6 +17,7 @@ import {
   MatPaginatorModule, MatIconModule,
   MatSelectModule
 } from '@angular/material';
+import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatTabsModule} from '@angular/material/tabs';
 import { HeaderComponent } from './header/header.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
@@ -42,6 +43,7 @@ import {
   FacebookLoginProvider, LinkedinLoginProvider,
 } from 'angular-6-social-login';
 import { FilterComponent } from './filter/filter.component';
+import { CommentComponent } from './comment/comment.component';
 
 // Configs
 export function getAuthServiceConfigs() {
@@ -80,7 +82,8 @@ export function getAuthServiceConfigs() {
     SearchComponent,
     LikeComponent,
     SocialLoginComponent,
-    FilterComponent
+    FilterComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,
@@ -102,7 +105,8 @@ export function getAuthServiceConfigs() {
     MatTabsModule,
     MatIconModule,
     SocialLoginModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSidenavModule
 
   ],
   providers: [

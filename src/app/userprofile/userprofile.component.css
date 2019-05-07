@@ -399,3 +399,10 @@ footer p a:hover {
     color: #9f26aa;
     text-decoration: none;
 }
+
+.closeone {
+    border: #0C242E;
+    alignment: right;
+    float: right;
+    margin-right: 10px;
+}

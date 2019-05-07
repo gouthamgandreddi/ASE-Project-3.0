@@ -21,8 +21,8 @@ export class FilterComponent implements OnInit {
 
   foods: Food[] = [
     {value: 'steak-0', viewValue: 'Deep learning'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'}
+    {value: 'pizza-1', viewValue: 'CNN'},
+    {value: 'tacos-2', viewValue: 'Model KB'}
   ];
   ngOnInit() {
     this.auth.currentMessage.subscribe(message => {
