@@ -21,7 +21,7 @@ const postSchema = mongoose.Schema({
   },
   dataLink: {
     type: String
-  }
+  },
   classification: {
     type: String
   }

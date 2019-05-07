@@ -12,7 +12,6 @@ var jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
-const mongoose = require('mongoose')
 
 const mongoURI = 'mongodb+srv://gouthamase:gouthamase@cluster0-5zsye.mongodb.net/model?retryWrites=true';
 
@@ -175,7 +174,7 @@ router.post("",checkAuth,multer({storage:storage}).single("image"),(req,res,next
     imagePath:url+"/images/"+ req.file.filename,
     username: req.body.username,
     githubUrl:req.body.githubUrl,
-    dataLink:req.body.dataLink
+    dataLink:req.body.dataLink,
     classification:req.body.category
   });
 
