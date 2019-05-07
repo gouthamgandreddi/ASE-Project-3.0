@@ -40,6 +40,8 @@ export class  PostCreateComponent implements OnInit {
       'image': new FormControl(null,{
         validators:[Validators.required]
       }),
+      'githubUrl': new FormControl(null),
+      'dataLink': new FormControl(null),
       'username': new FormControl(null),
       'category': new FormControl(null,{
         validators:[Validators.required,Validators.minLength(3)]
@@ -55,6 +57,8 @@ export class  PostCreateComponent implements OnInit {
           'title':this.post.title,
           'content':this.post.content,
           'image':this.post.imagePath,
+          'githubUrl':this.post.githubUrl,
+          'dataLink':this.post.dataLink,
           'category': this.post.category
         });
       }else {
@@ -90,7 +94,8 @@ export class  PostCreateComponent implements OnInit {
           this.form.value.image,
           username,
           this.form.value.category,
-          );
+          this.form.value.githubUrl,
+          this.form.value.dataLink);
       this.router.navigate(['/']);
     }else{
       this.postService.updatePost(
@@ -99,8 +104,9 @@ export class  PostCreateComponent implements OnInit {
         this.form.value.content,
           this.form.value.image,
           username,
-          this.form.value.category
-          );
+          this.form.value.category,
+            this.form.value.githubUrl,
+          this.form.value.dataLink);
       this.router.navigate(['/']);
     }
     this.form.reset();

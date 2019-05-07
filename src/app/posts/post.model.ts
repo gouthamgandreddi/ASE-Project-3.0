@@ -3,5 +3,7 @@ export interface Post {
   title:string;
   content: string;
   imagePath:string;
-  category: string
+  githubUrl:string;
+  dataLink:string;
+  category: string;
 }

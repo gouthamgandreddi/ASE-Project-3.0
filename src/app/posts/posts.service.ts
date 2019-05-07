@@ -53,6 +53,16 @@ export class PostsService {
       });
   }
 
+    getModelInfo(title){
+        const queryParams = `?title=${title}`;
+        console.log(queryParams);
+        return this.http.get<{message:string,model:any}>('http://localhost:3000/api/posts/postid'+queryParams)
+            .pipe(map((modelResult)=>{
+                console.log('message for repo result - ',modelResult.message );
+                console.log(modelResult.model);
+                return  modelResult.model
+            }))
+    }
   deletePosts(postId: string){
     console.log('service -',postId);
     return this.http.delete('http://localhost:3000/api/posts/'+postId);
@@ -69,13 +79,16 @@ export class PostsService {
     return {...this.posts.find(p =>p.id === id)};
   }
 
-  updatePost(id:string,title:string,content:string,image:string, username: string, category:string){
+  updatePost(id:string,title:string,content:string,image:string, username: string,category:string,githubUrl,dataLink){
+
     // const post: Post =
     //     {id:id,title:title,content:content,imagePath:image};
     const updateData = new FormData();
     updateData.append('title',title);
       updateData.append('content',content);
       updateData.append('image',image,title);
+      updateData.append('githubUrl',githubUrl);
+      updateData.append('dataLink',dataLink);
 
       updateData.append('username',username);
       updateData.append('username',category);
@@ -87,12 +100,14 @@ export class PostsService {
         this.router.navigate(['/']);
       });
   }
-  addPosts(title:string,content:string,image:File, username:string, category:string){
+  addPosts(title:string,content:string,image:File, username:string,category:string,githubUrl, dataLink){
       const postData = new FormData();
       postData.append('title',title);
       postData.append('content',content);
       postData.append('image',image,title);
       postData.append('username', username);
+      postData.append('githubUrl',githubUrl);
+      postData.append('dataLink',dataLink);
       postData.append('category', category);
       console.log('postData service post - ',postData );
     // var post:Post ={id:null,title:title,content:content};
@@ -143,6 +158,7 @@ export class PostsService {
                 })
             )
     }
+
 
     // get single file
     getFileService(fileFname:string){

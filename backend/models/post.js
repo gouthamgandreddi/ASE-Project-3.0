@@ -16,6 +16,12 @@ const postSchema = mongoose.Schema({
   username: {
     type: String
   },
+  githubUrl: {
+    type: String
+  },
+  dataLink: {
+    type: String
+  }
   classification: {
     type: String
   }

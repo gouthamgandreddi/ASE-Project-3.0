@@ -3,6 +3,7 @@ import {NgForm} from "@angular/forms";
 import {UserDataService} from "../../user-data.service";
 import {AuthService} from "../auth.service";
 import {invalid} from "@angular/compiler/src/render3/view/util";
+import {split} from "ts-node";
 
 @Component({
   selector: 'app-signup',
@@ -20,6 +21,7 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
   }
 
+  response: any;
   onSignup(form:NgForm){
     if(form.invalid){
       return;
@@ -30,8 +32,11 @@ export class SignupComponent implements OnInit {
     this.userDataService.createUser(this.email,this.password)
         .subscribe( res => {
           console.log('sign up reaponse in comp - ',res);
+          this.response =res;
+          var errorMessage = this.response.split("Value:");
+          console.log(errorMessage);
           if(res.includes(this.error)){
-            alert(res);
+            alert("User already exists with the mail - "+errorMessage[1]);
           }
         });
   }
