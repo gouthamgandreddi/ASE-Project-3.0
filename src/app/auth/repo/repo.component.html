@@ -41,6 +41,15 @@
             </div>
         </div>
     </mat-tab>
+
+    <mat-tab label="Discussion">
+        <h1>Comments and discussion </h1>
+        <div>
+        <app-like></app-like>
+<!--        <app-comment></app-comment>    -->
+        </div>
+    </mat-tab>
+
     <mat-tab label="Accuracy">
         <h1>Accuracy chart</h1>
         <div *ngIf="accuracyValueData.length > 0; else elseBlock">

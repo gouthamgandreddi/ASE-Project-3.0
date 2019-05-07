@@ -1,8 +1,8 @@
-<mat-toolbar color="accent">
+<mat-toolbar>
   <div class="home">
-    <a routerLink="/" ><mat-icon>home</mat-icon></a>
+    <a routerLink="/"><mat-icon>home</mat-icon></a>
   </div>
-  <div><a routerLink="/user">{{userName}}</a>  </div>
+  <div ><a routerLink="/user" >{{userName}}</a>  </div>
   <span class="space"></span>
   <ul>
     <li *ngIf="userIsAuthenticated">
