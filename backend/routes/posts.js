@@ -168,14 +168,16 @@ router.post("",checkAuth,multer({storage:storage}).single("image"),(req,res,next
     title:req.body.title,
     content:req.body.content,
     imagePath:url+"/images/"+ req.file.filename,
-    username: req.body.username
+    username: req.body.username,
+    githubUrl:req.body.githubUrl,
+    dataLink:req.body.dataLink
   });
 
   post.save().then(createdPost =>{
-    console.log('add posts result',createdPost);
+    console.log('add model result',createdPost);
     console.log(post);
     res.status(201).json({
-      message:'posts added',
+      message:'model added',
       post:{
         ...createdPost,
         id:createdPost._id
@@ -211,6 +213,23 @@ router.get("",(req,res,next)=>{
       })
 });
 
+// get method for repo component
+router.get("/postid",(req,res,next)=>{
+  console.log(req.query.title,' -query req');
+  const title = req.query.title;
+  console.log('inside put');
+  Post.findOne({title:title}).then(result =>{
+    console.log('result for repo component',result);
+    res.status(200).json({
+      message:'Model fetch successful for repo component',
+      model:result
+    });
+  })
+      .catch(err => {
+        console.log(err);
+      });
+
+});
 
 
 // router.get("/byCategory",(req,res,next)=>{
@@ -271,17 +290,21 @@ router.put("/:id" ,multer({storage:storage}).single("image"),(req,res,next)=>{
     title:req.body.title,
     content:req.body.content,
     imagePath: url + "/images/"+req.file.filename,
-    username: req.body.username
+    username: req.body.username,
+    githubUrl:req.body.githubUrl,
+    dataLink:req.body.dataLink,
   });
   console.log('inside put');
   Post.updateOne({_id:req.params.id},{
     title:req.body.title,
     content:req.body.content,
-    imagePath: url + "/images/"+req.file.filename
+    imagePath: url + "/images/"+req.file.filename,
+    githubUrl:req.body.githubUrl,
+    dataLink:req.body.dataLink,
   }).then(result =>{
     console.log('result',result);
     res.status(200).json({
-      message:'update successfull'
+      message:'Model update successful'
     });
   })
       .catch(err => {
@@ -297,7 +320,7 @@ router.delete("/:id",checkAuth,(req,res,next)=>{
     }else{
       console.log('deleted success',result);
       res.status(200).json({
-        message:'Post deleted successfully'
+        message:'Model deleted successfully'
       })
     }
   })

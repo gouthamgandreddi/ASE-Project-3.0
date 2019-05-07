@@ -1,32 +1,27 @@
 <div>
   <br>
-  {{title}}
+    <h1>  {{title}} </h1>
   <br>
 </div>
 
 
 <mat-tab-group animationDuratiosn="1000ms">
-    <mat-tab label="Accuracy">
-        <h1>Accuracy chart</h1>
-        <canvas baseChart
-                width="150" height="100"
-                [data]="accuracyValueData" [labels]="model_iteration"  [options]="lineChartOptions" [chartType]="lineChartType" >
-        </canvas>
+    <mat-tab label="Model Info">
+        <h2>Description</h2>
+        {{description}}<br><br>
+        <mat-divider> </mat-divider>
+        <h4>Git HUb repo</h4> {{githubUrl}}<br>
+        <mat-divider> </mat-divider>
+        <h4>Data Link</h4> {{dataLink}}
+
     </mat-tab>
-    <mat-tab label="Loss">
-        <h1>Loss value chart</h1>
-        <canvas baseChart
-                width="150" height="100"
-                [data]="lossValueData"  [labels]="model_iteration"  [options]="lineChartOptions" [chartType]="lineChartType" >
-        </canvas>
-    </mat-tab>
-    <mat-tab label="Iretations">
+    <mat-tab label="Code">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 m-auto">
-                    <h1 class="text-center mat-display-5 my-4">Iterations results</h1>
+                    <h1 class="text-center mat-display-5 my-4">Model file storage</h1>
                     <button mat-stroked-button type="button" (click)="filePicker.click()">Upload File</button>
-                    <h2>Files are </h2>
+                    <h2>Files</h2>
                     <input type="file" name="image" #filePicker (change)="onImagePicked($event)">
                     <table>
                         <tr>
@@ -46,27 +41,25 @@
             </div>
         </div>
     </mat-tab>
-    <mat-tab label="Code">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 m-auto">
-                    <h1 class="text-center display-4 my-4">Code</h1>
-                    <div class="text-center ">Uploaded Images here</div>
-                </div>
-            </div>
+    <mat-tab label="Accuracy">
+        <h1>Accuracy chart</h1>
+        <div *ngIf="accuracyValueData.length > 0; else elseBlock">
+        <canvas baseChart
+                width="150" height="100"
+                [data]="accuracyValueData" [labels]="model_iteration"  [options]="lineChartOptions" [chartType]="lineChartType" >
+        </canvas>
         </div>
-        <mat-card>
-            <form [formGroup]="form" (submit)="onSavePost()">
-                    <input
-                           type="file"
-                           name="file"
-                           formControlName="file"
-                           placeholder="enter to create post"
-                           floating>
-                    <mat-error *ngIf="form.get('file').invalid">'file is required' </mat-error>
-                <hr>
-                <button mat-raised-button color="accent" type="submit">Save</button>
-            </form>
-        </mat-card>
+        <ng-template #elseBlock>No test data uploaded yet</ng-template>
+
+    </mat-tab>
+    <mat-tab label="Loss">
+        <h1>Loss value chart</h1>
+        <div *ngIf="lossValueData.length > 0; else elseBlock">
+        <canvas baseChart
+                width="150" height="100"
+                [data]="lossValueData"  [labels]="model_iteration"  [options]="lineChartOptions" [chartType]="lineChartType" >
+        </canvas>
+        </div>
+        <ng-template #elseBlock>No test data uploaded yet</ng-template>
     </mat-tab>
 </mat-tab-group>

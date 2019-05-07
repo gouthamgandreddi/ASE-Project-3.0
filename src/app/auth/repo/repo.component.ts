@@ -16,9 +16,11 @@ export class RepoComponent implements OnInit,OnDestroy {
   sub:any;
   form: FormGroup;
   files:any;
+  description:string;
+  githubUrl:string;
+  dataLink:string;
   public lineChartType = 'line';
   public SystemName;
-  form: FormGroup;
 
 
   public labelMFL: Array<any> ;
@@ -61,6 +63,13 @@ export class RepoComponent implements OnInit,OnDestroy {
             this.files = res;
           });
 
+      this.postService.getModelInfo(this.title)
+          .subscribe(res => {
+            console.log('res in repo component - ' , res);
+            this.description = res.content;
+            this.githubUrl = res.githubUrl;
+            this.dataLink = res.dataLink;
+          });
       this.authService.getRepo(this.title).subscribe(res =>{
         console.log('response in repo',res);
         console.log('response in repo',res['ex']);

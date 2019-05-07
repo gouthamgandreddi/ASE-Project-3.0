@@ -24,6 +24,20 @@
              floating>
       <mat-error *ngIf="form.get('content').invalid">'content is required'</mat-error>
     </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text"
+             name="githubUrl"
+             formControlName="githubUrl"
+             placeholder="github link"
+             floating>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text"
+             name="dataLink"
+             formControlName="dataLink"
+             placeholder="data source link"
+             floating>
+    </mat-form-field>
     <hr>
     <button mat-raised-button color="accent" type="submit">Save</button>
 

@@ -7,16 +7,18 @@ import { PostCreateComponent } from './posts/post-create/post-create.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
-  MatExpansionModule,
-  MatButtonModule,
-  MatCardModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatToolbarModule,
-  MatProgressSpinnerModule,
-  MatPaginatorModule, MatIconModule,
-  MatSelectModule
+    MatExpansionModule,
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatToolbarModule,
+    MatProgressSpinnerModule,
+    MatPaginatorModule, MatIconModule,
+    MatSelectModule, MatLineModule
 } from '@angular/material';
+import {MatDividerModule} from '@angular/material/divider';
+
 import {MatTabsModule} from '@angular/material/tabs';
 import { HeaderComponent } from './header/header.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
@@ -82,29 +84,31 @@ export function getAuthServiceConfigs() {
     SocialLoginComponent,
     FilterComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCardModule,
-    NgbModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatExpansionModule,
-    MatProgressSpinnerModule,
-    MatPaginatorModule,
-    ChartsModule,
-    MatTabsModule,
-    MatIconModule,
-    SocialLoginModule,
-    MatSelectModule
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCardModule,
+        NgbModule,
+        MatButtonModule,
+        MatToolbarModule,
+        MatExpansionModule,
+        MatProgressSpinnerModule,
+        MatPaginatorModule,
+        ChartsModule,
+        MatTabsModule,
+        MatIconModule,
+        SocialLoginModule,
+        MatSelectModule,
+        MatLineModule,
+        MatDividerModule
 
-  ],
+    ],
   providers: [
       {provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true},
     { provide : AuthServiceConfig, useFactory: getAuthServiceConfigs }

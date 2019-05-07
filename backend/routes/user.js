@@ -52,7 +52,7 @@ router.post("/login",(req,res,next) =>{
             console.log('result -',result);
             if(!result){
                 return res.status(404).json({
-                    message:"Auth failed 2"
+                    message:"Invalid credentials,kindly re-enter"
                 })
             }
             const token = jwt.sign(
