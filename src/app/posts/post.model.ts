@@ -5,4 +5,5 @@ export interface Post {
   imagePath:string;
   githubUrl:string;
   dataLink:string;
+  category: string;
 }

@@ -22,6 +22,9 @@ const postSchema = mongoose.Schema({
   dataLink: {
     type: String
   }
+  classification: {
+    type: String
+  }
 });
 
 module.exports = mongoose.model('Post',postSchema);

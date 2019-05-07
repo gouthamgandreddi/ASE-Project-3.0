@@ -37,6 +37,15 @@
              formControlName="dataLink"
              placeholder="data source link"
              floating>
+
+      <input matInput
+             type="text"
+             name="category"
+             formControlName="category"
+             placeholder="enter category of the model"
+             floating>
+      <mat-error *ngIf="form.get('category').invalid">'category is required' </mat-error>
+
     </mat-form-field>
     <hr>
     <button mat-raised-button color="accent" type="submit">Save</button>

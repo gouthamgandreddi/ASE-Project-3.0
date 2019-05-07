@@ -79,7 +79,8 @@ export class PostsService {
     return {...this.posts.find(p =>p.id === id)};
   }
 
-  updatePost(id:string,title:string,content:string,image:string, username: string,githubUrl,dataLink){
+  updatePost(id:string,title:string,content:string,image:string, username: string,category:string,githubUrl,dataLink){
+
     // const post: Post =
     //     {id:id,title:title,content:content,imagePath:image};
     const updateData = new FormData();
@@ -90,6 +91,7 @@ export class PostsService {
       updateData.append('dataLink',dataLink);
 
       updateData.append('username',username);
+      updateData.append('username',category);
       console.log(updateData,' -updated data')
     this.http.put('http://localhost:3000/api/posts/'+id,updateData)
       .subscribe(response => {
@@ -98,7 +100,7 @@ export class PostsService {
         this.router.navigate(['/']);
       });
   }
-  addPosts(title:string,content:string,image:File, username:string,githubUrl, dataLink){
+  addPosts(title:string,content:string,image:File, username:string,category:string,githubUrl, dataLink){
       const postData = new FormData();
       postData.append('title',title);
       postData.append('content',content);
@@ -106,7 +108,7 @@ export class PostsService {
       postData.append('username', username);
       postData.append('githubUrl',githubUrl);
       postData.append('dataLink',dataLink);
-
+      postData.append('category', category);
       console.log('postData service post - ',postData );
     // var post:Post ={id:null,title:title,content:content};
     this.http.post<{message:string,postId:string}>('http://localhost:3000/api/posts', postData)
