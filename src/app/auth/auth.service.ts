@@ -10,13 +10,18 @@ import {log} from "util";
   providedIn: 'root'
 })
 export class AuthService {
+
   private token: any;
+  private modelDataListner = new Subject<any>();
   private userIsAuthenticted =false;
   private authStatusListner = new Subject<boolean>();
   private tokenTimer:any;
-    private messageSource = new BehaviorSubject(null);
-    currentMessage = this.messageSource.asObservable();
-  constructor(private http:HttpClient,private router:Router) { }
+
+  private messageSource = new BehaviorSubject([]);
+  currentMessage = this.messageSource.asObservable();
+
+
+    constructor(private http:HttpClient,private router:Router) { }
 
   getToken(){
     return this.token;
@@ -27,6 +32,9 @@ export class AuthService {
   }
   getAuthStatusListner(){
       return this.authStatusListner.asObservable();
+  }
+  getModelDataListner(){
+      return this.modelDataListner.asObservable();
   }
   createUser(email:string,password:string){
     const authData: AuthDataModel = {

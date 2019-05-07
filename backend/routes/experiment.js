@@ -53,6 +53,22 @@ router.post('/exi',(req,res,next)=>{
         })
 });
 
+//searchModel just for temp - alternate for prem
+router.post('/searchingModels',(req,res,next)=>{
+
+    console.log('req body  - ',req.body);
+    console.log('req title  - ',req.body.title);
+
+    Exp.find({model_name:req.body.title})
+        .then(result =>{
+            console.log(result,' - result');
+            res.json(result);
+        })
+        .catch(err =>{
+            console.log(err, ' - error in expt');
+        })
+});
+
 // router.get("/put" ,(req,res,next)=>{
 //     const exp = {
 //         exper:[{

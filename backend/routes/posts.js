@@ -161,13 +161,16 @@ router.get('/files/:filename',(req,res)=>{
 router.post("",checkAuth,multer({storage:storage}).single("image"),(req,res,next)=>{
   const url = req.protocol+'://'+req.get('host');
   console.log(req,'-image path');
+  console.log('user name from frontend'+ req.body.username);
 
   const post = new Post({
     _id:req.id,
     title:req.body.title,
     content:req.body.content,
-    imagePath:url+"/images/"+ req.file.filename
+    imagePath:url+"/images/"+ req.file.filename,
+    username: req.body.username
   });
+
   post.save().then(createdPost =>{
     console.log('add posts result',createdPost);
     console.log(post);
@@ -184,7 +187,10 @@ router.post("",checkAuth,multer({storage:storage}).single("image"),(req,res,next
 router.get("",(req,res,next)=>{
   const pageSize = +req.query.pagesize;
   const CurrentPage = +req.query.page;
-  const postQuery = Post.find();
+  const username = +req.query.username;
+  console.log('user name at backend'+ req.query.username);
+  const postQuery = Post.find({'username': req.query.username});
+  console.log('post query at backend '+postQuery);
   let fetchedPosts;
   if(pageSize && CurrentPage){
     postQuery
@@ -205,13 +211,67 @@ router.get("",(req,res,next)=>{
       })
 });
 
+
+
+// router.get("/byCategory",(req,res,next)=>{
+//   const pageSize = +req.query.pagesize;
+//   const CurrentPage = +req.query.page;
+//   const username = +req.query.username;
+//   console.log('user name at backend'+ req.query.username);
+//   const postQuery = Post.find({'username': req.query.username});
+//   console.log('post query at backend '+postQuery);
+//   let fetchedPosts;
+//   if(pageSize && CurrentPage){
+//     postQuery
+//         .skip(pageSize * (CurrentPage -1))
+//         .limit(pageSize);
+//   }
+//   postQuery
+//       .then(documents =>{
+//         fetchedPosts = documents;
+//         return Post.countDocuments();
+//       })
+//       .then(count => {
+//         res.status(200).json({
+//           message:'response from server',
+//           posts:fetchedPosts,
+//           maxPosts: count
+//         });
+//       })
+// });
+
+router.get("/byCategory",(req,res,next)=>{
+
+  console.log('category at backend'+ req.query.category);
+  const postQuery = Post.find({'classification': req.query.category});
+  console.log('post query at backend '+postQuery.classification);
+  let fetchedPosts;
+
+  postQuery
+      .then(documents =>{
+        fetchedPosts = documents;
+        return Post.countDocuments();
+      })
+      .then(count => {
+        res.status(200).json({
+          message:'response from server',
+          posts:fetchedPosts,
+          maxPosts: count
+        });
+      })
+});
+
+
+
+
 router.put("/:id" ,multer({storage:storage}).single("image"),(req,res,next)=>{
   const url = req.protocol+'://'+req.get('host');
   console.log(req,' -file req');
   const post = new Post({
     title:req.body.title,
     content:req.body.content,
-    imagePath: url + "/images/"+req.file.filename
+    imagePath: url + "/images/"+req.file.filename,
+    username: req.body.username
   });
   console.log('inside put');
   Post.updateOne({_id:req.params.id},{
