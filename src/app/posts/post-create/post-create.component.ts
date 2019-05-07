@@ -40,7 +40,10 @@ export class  PostCreateComponent implements OnInit {
       'image': new FormControl(null,{
         validators:[Validators.required]
       }),
-      'username': new FormControl(null)
+      'username': new FormControl(null),
+      'category': new FormControl(null,{
+        validators:[Validators.required,Validators.minLength(3)]
+      }),
     });
 
     this.route.paramMap.subscribe((paramMap:ParamMap)=>{
@@ -51,7 +54,8 @@ export class  PostCreateComponent implements OnInit {
         this.form.setValue({
           'title':this.post.title,
           'content':this.post.content,
-          'image':this.post.imagePath
+          'image':this.post.imagePath,
+          'category': this.post.category
         });
       }else {
         this.mode = 'create';
@@ -83,8 +87,10 @@ export class  PostCreateComponent implements OnInit {
       this.postService.addPosts(
           this.form.value.title,
           this.form.value.content,
-          this.form.value.image  ,
-          username);
+          this.form.value.image,
+          username,
+          this.form.value.category,
+          );
       this.router.navigate(['/']);
     }else{
       this.postService.updatePost(
@@ -92,7 +98,9 @@ export class  PostCreateComponent implements OnInit {
         this.form.value.title,
         this.form.value.content,
           this.form.value.image,
-          username);
+          username,
+          this.form.value.category
+          );
       this.router.navigate(['/']);
     }
     this.form.reset();

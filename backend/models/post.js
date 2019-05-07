@@ -15,6 +15,9 @@ const postSchema = mongoose.Schema({
   },
   username: {
     type: String
+  },
+  classification: {
+    type: String
   }
 });
 
