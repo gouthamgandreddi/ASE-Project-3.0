@@ -8,41 +8,43 @@ import {toArray} from "rxjs/operators";
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit,OnDestroy {
+export class HeaderComponent implements OnInit {
 
-  private authListnerSubs: Subscription;
-  private userIsAuthenticated = false;
+    private authListnerSubs: Subscription;
+    private userIsAuthenticated = false;
 
-  userName:string ='UserProfile';
-  constructor(private authService:AuthService) { }
+    userName: string = 'UserProfile';
 
-  ngOnInit() {
+    constructor(private authService: AuthService) {
+    }
 
-    this.authListnerSubs = this.authService
-        .getAuthStatusListner()
-        .subscribe(isAuthenticated => {
-            this.userIsAuthenticated=isAuthenticated;
-            this.userName = localStorage.getItem('username');
-        });
-  }
+    ngOnInit() {
 
-  onLogout(){  //should clear the token
-    this.userIsAuthenticated = false;
-    this.authService.logout();
-    this.userName='UserProfile';
-  }
+        this.authListnerSubs = this.authService
+            .getAuthStatusListner()
+            .subscribe(isAuthenticated => {
+                this.userIsAuthenticated = isAuthenticated;
+                this.userName = localStorage.getItem('username');
+            });
+    }
 
-  searchModel(searchValue: HTMLInputElement) {
-     console.log(searchValue.value);
-     this.authService.getSearchResult(searchValue.value).subscribe( res =>
-     {
-       this.authService.changeMessage(res);
-       console.log('Searching for Models' + res);
-     }
-   )
-  }
+    onLogout() {  //should clear the token
+        this.userIsAuthenticated = false;
+        this.authService.logout();
+        this.userName = 'UserProfile';
+    }
 
-  ngOnDestroy(){
-    this.authListnerSubs.unsubscribe();
-  }
+    searchModel(searchValue: HTMLInputElement) {
+        console.log(searchValue.value);
+        this.authService.getSearchResult(searchValue.value).subscribe(res => {
+                this.authService.changeMessage(res);
+                console.log('Searching for Models' + res);
+            }
+        )
+
+    }
 }
+  // ngOnDestroy() {
+  //   this.authListnerSubs.unsubscribe();
+  // }
+

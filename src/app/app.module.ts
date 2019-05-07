@@ -15,6 +15,7 @@ import {
   MatToolbarModule,
   MatProgressSpinnerModule,
   MatPaginatorModule, MatIconModule,
+  MatSelectModule
 } from '@angular/material';
 import {MatTabsModule} from '@angular/material/tabs';
 import { HeaderComponent } from './header/header.component';
@@ -40,6 +41,7 @@ import {
   GoogleLoginProvider,
   FacebookLoginProvider, LinkedinLoginProvider,
 } from 'angular-6-social-login';
+import { FilterComponent } from './filter/filter.component';
 
 // Configs
 export function getAuthServiceConfigs() {
@@ -77,7 +79,8 @@ export function getAuthServiceConfigs() {
     UserprofileComponent,
     SearchComponent,
     LikeComponent,
-    SocialLoginComponent
+    SocialLoginComponent,
+    FilterComponent
   ],
   imports: [
     BrowserModule,
@@ -98,7 +101,8 @@ export function getAuthServiceConfigs() {
     ChartsModule,
     MatTabsModule,
     MatIconModule,
-    SocialLoginModule
+    SocialLoginModule,
+    MatSelectModule
 
   ],
   providers: [

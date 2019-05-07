@@ -46,4 +46,27 @@
             </div>
         </div>
     </mat-tab>
+    <mat-tab label="Code">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 m-auto">
+                    <h1 class="text-center display-4 my-4">Code</h1>
+                    <div class="text-center ">Uploaded Images here</div>
+                </div>
+            </div>
+        </div>
+        <mat-card>
+            <form [formGroup]="form" (submit)="onSavePost()">
+                    <input
+                           type="file"
+                           name="file"
+                           formControlName="file"
+                           placeholder="enter to create post"
+                           floating>
+                    <mat-error *ngIf="form.get('file').invalid">'file is required' </mat-error>
+                <hr>
+                <button mat-raised-button color="accent" type="submit">Save</button>
+            </form>
+        </mat-card>
+    </mat-tab>
 </mat-tab-group>

@@ -18,6 +18,8 @@ export class RepoComponent implements OnInit,OnDestroy {
   files:any;
   public lineChartType = 'line';
   public SystemName;
+  form: FormGroup;
+
 
   public labelMFL: Array<any> ;
   public lineChartOptions: any = { 
@@ -48,7 +50,6 @@ export class RepoComponent implements OnInit,OnDestroy {
         validators:[Validators.required]
       })
     });
-
     this.sub = this.route.params.subscribe(params =>{
       console.log('params in repo - ', params);
       this.title = params['title'];

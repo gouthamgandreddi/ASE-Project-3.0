@@ -39,7 +39,8 @@ export class  PostCreateComponent implements OnInit {
       }),
       'image': new FormControl(null,{
         validators:[Validators.required]
-      })
+      }),
+      'username': new FormControl(null)
     });
 
     this.route.paramMap.subscribe((paramMap:ParamMap)=>{
@@ -77,18 +78,21 @@ export class  PostCreateComponent implements OnInit {
       return;
     }
     this.isLoading=true;
+    let username = localStorage.getItem('username');
     if(this.mode === 'create'){
       this.postService.addPosts(
           this.form.value.title,
           this.form.value.content,
-          this.form.value.image);
+          this.form.value.image  ,
+          username);
       this.router.navigate(['/']);
     }else{
       this.postService.updatePost(
         this.postId,
         this.form.value.title,
         this.form.value.content,
-          this.form.value.image);
+          this.form.value.image,
+          username);
       this.router.navigate(['/']);
     }
     this.form.reset();

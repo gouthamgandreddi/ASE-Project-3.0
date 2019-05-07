@@ -1,5 +1,8 @@
+
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../auth/auth.service";
+
+
 
 @Component({
   selector: 'app-search',
@@ -7,6 +10,7 @@ import {AuthService} from "../auth/auth.service";
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
+
 
   message:Array<string> =[];
   constructor(public auth: AuthService) { }
@@ -20,4 +24,5 @@ export class SearchComponent implements OnInit {
       // this.message = message
     });
   }
+
 }
