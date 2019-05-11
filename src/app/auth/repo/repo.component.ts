@@ -14,6 +14,7 @@ export class RepoComponent implements OnInit,OnDestroy {
 
   title:string;
   sub:any;
+  repo:any;
   form: FormGroup;
   files:any;
   description:string;
@@ -94,7 +95,7 @@ export class RepoComponent implements OnInit,OnDestroy {
     })
   }
 
-  onImagePicked(event:Event){
+  onFilePicked(event:Event){
     let currentRepo = this.title;
     const file = (event.target as HTMLInputElement).files[0]; //is a file object
     this.form.patchValue({
@@ -105,7 +106,12 @@ export class RepoComponent implements OnInit,OnDestroy {
         .subscribe(res => {
           console.log('upload success in onImagePicked');
           if(res){
-            this.router.navigate(['/repo',currentRepo]);//route not happening
+              console.log('response on repo - ', res);
+              this.postService.getFilesList(this.title)
+                  .subscribe(res => {
+                      console.log('res - ',res);
+                      this.files = res;
+                  })
           }
         });
     this.form.get('image').updateValueAndValidity();
@@ -121,19 +127,26 @@ export class RepoComponent implements OnInit,OnDestroy {
   deleteFile(filename){
     console.log('delete file in comp - ',filename);
     let currentRepo = this.title;
-    console.log(currentRepo)
+    console.log(currentRepo);
     this.postService.deleteFileService(filename)
         .subscribe(res =>{
           console.log("response for delete file - ",res);
           console.log('going into getFilelist service ');
-          this.router.navigate(['/repo','CNN']);
+          console.log(this.title);
+            this.postService.getFilesList(this.title)
+                .subscribe(res => {
+                    console.log('res - ',res);
+                    console.log('typeof - ',typeof res);
+                    this.files = res;
+                })
+          // this.router.navigate(['/repo',this.title]);
         });
   }
 
   downloadFile(filename:string,contentType:string){
     console.log('delete file in comp - ',filename);
     let currentRepo = this.title;
-    console.log('title - ',currentRepo)
+    console.log('title - ',currentRepo);
     this.postService.downloadFileService(filename,contentType)
         .subscribe( (res)=>{
           console.log('file url in download back to component download ',res);
@@ -146,6 +159,7 @@ export class RepoComponent implements OnInit,OnDestroy {
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
+      this.repo.unsubscribe();
   }
 
 }
