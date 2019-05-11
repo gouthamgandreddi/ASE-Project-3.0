@@ -179,7 +179,7 @@ export class PostsService {
         return this.http.delete('http://localhost:3000/api/posts/files/'+queryParams)
             .pipe(map((responseData) =>{
                 console.log(responseData,' -  response after delete - service filename');
-                this.router.navigate(['/repo/LST']); // make change
+                return responseData;
             },error =>{
                 console.log(error);
             })
